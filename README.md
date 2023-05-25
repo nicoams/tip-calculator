@@ -1,70 +1,192 @@
-# Getting Started with Create React App
+# Frontend Mentor - Tip calculator app solution
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a solution to the [Tip calculator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/tip-calculator-app-ugJNGbJUX). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-## Available Scripts
+## Table of contents
 
-In the project directory, you can run:
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Continued development](#continued-development)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
+- [Acknowledgments](#acknowledgments)
 
-### `npm start`
+**Note: Delete this note and update the table of contents based on what sections you keep.**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Overview
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### The challenge
 
-### `npm test`
+Users should be able to:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- View the optimal layout for the app depending on their device's screen size
+- See hover states for all interactive elements on the page
+- Calculate the correct tip and total cost of the bill per person
 
-### `npm run build`
+### Screenshot
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Desktop:
+  ![](./public/assets/screenshots/Tip%20calculator%20app%20-%20Desktop.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  ![](./public/assets/screenshots/Tip%20calculator%20app%20-%20Desktop%20Completed.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Mobile:
+  ![](./public/assets/screenshots/Tip%20calculator%20app%20-%20Mobile.png)
 
-### `npm run eject`
+  ![](./public/assets/screenshots/Tip%20calculator%20app%20-%20Mobile%20Completed.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Links
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Solution URL: [Frontend Mentor](https://your-solution-url.com)
+- Live Site URL: [GitHub](https://your-live-site-url.com)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## My process
 
-## Learn More
+### Built with
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- [React](https://reactjs.org/) - JS library
+- [Sass](https://sass-lang.com/) - CSS Preprocessor
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### What I learned
 
-### Code Splitting
+#### React
+I started learning React some time ago, but I haven't used it in a while. I decided start using it again on this one.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+I remembered about dividing the code into components, so I did this:
 
-### Analyzing the Bundle Size
+```js
+//App using the Card component
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+function App() {
+  return (
+    <div className="container">
+      <header className="header">
+      </header>
 
-### Making a Progressive Web App
+      <Card />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+      <footer className="attribution">
+      </footer>
+    </div>
+  );
+}
+```
 
-### Advanced Configuration
+```js
+//Card using the Form and Results components
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+export default function Card() {
+  return (
+    <main className="content-wrapper">
+      <Form />
+      <Results />
+    </main>
+  );
+}
+```
 
-### Deployment
+The `Form` is about the inputs the user will insert (bill, tip, number of people) and the `Results` is about showing the results of the calculation. But, the Result couldn't use the state from the Form which made impossible to do the calculations. So, I learned about the `useContext` hook. If I used it on the parent, I could share the state all over its children.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```js
+export const CalculationContext = createContext('');
 
-### `npm run build` fails to minify
+export const CalculationProvider = ({ children }) => {
+  const variables = {...
+  };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  const functions = {...
+  };
+  return (
+    <CalculationContext.Provider
+      value={{
+        variables,
+        functions,
+      }}
+    >
+      {children}
+    </CalculationContext.Provider>
+  );
+};
+```
+
+At first, I wrapped the Card with the Provider because it is the parent of Form and Result, the components that need to share the states.
+
+```js
+export default function Card() {
+  return (
+    <CalculationProvider>
+      <main className="content-wrapper">
+        <Form />
+        <Results />
+      </main>
+    </CalculationProvider>
+  );
+}
+```
+
+It was working really well, but later on I decided to use the a function to reset when the user pressed 'Esc' (just like the button). Then I wrapped the whole `App` on it, so it can be done anytime, everywhere on the application.
+
+```js
+index.js
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <CalculationProvider>
+      <App />
+    </CalculationProvider>
+  </React.StrictMode>
+);
+```
+
+Aside what was asked, i wanted to make it useful for keyboard users (insight from another project from the plataform). Through the following code, the user can choose their option with 'Tab' and then select it with 'Enter'.
+
+```js
+  context.js
+
+  const handleKeyDown = (e, value) => {
+    if (e.key === 'Enter') {
+      console.log(e.key);
+      e.preventDefault();
+      setSelectedOption(value);
+      const name = 'tipPercentage';
+      setInputs((values) => ({ ...values, [name]: value }));
+    }
+  };
+
+  form.js
+
+    <label
+      htmlFor="5"
+      tabIndex={0}
+      name="tipPercentage"
+      onKeyDown={(e) => functions.handleKeyDown(e, '5')}
+    >
+      5%
+    </label>
+```
+
+### Continued development
+
+I also wanted to display thousand and decimal separators based on user's locale on the inputs type number. I got something with `react-number-format` lib, but it wasn't what I looked for so I left it out.
+
+I intented to learn how to do that and come back to update this project.
+
+### Useful resources
+
+- [Como usar o useContext para compartilhar dados - SIMPLIFICANDO OS HOOKS DO REACT.](https://www.youtube.com/watch?v=OLtpJLQLOeM) - This helped me sharing the variables among the components of the project. It is in brazilian portuguese, but it shows how to use useContext.
+
+
+## Author
+
+- GitHub - [Nicholas ALbuquerque](github.com/nicoams)
+- Frontend Mentor - [@nicoams](https://www.frontendmentor.io/profile/nicoams)

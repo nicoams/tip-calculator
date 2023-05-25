@@ -1,0 +1,42 @@
+
+@use 'colors';
+
+.content-wrapper {
+  height: 50%;
+  width: 55%;
+  background-color: colors.$neutral6;
+  color: colors.$neutral2;
+  padding: 1em;
+  position: relative;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+
+  label {
+    font-size: 0.6em;
+    margin-bottom: 0.4em;
+  }
+
+  .inputs,
+  .results {
+    height: 100%;
+    width: 50%;
+  }
+}
+
+@media (max-width: 376px){
+  .content-wrapper{
+    height: auto;
+    width: 100%;
+    flex-direction: column;
+
+
+    .inputs, .results{
+      height: auto;
+      width: 100%;
+    }
+  }
+
+}

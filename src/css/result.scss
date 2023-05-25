@@ -1,0 +1,77 @@
+
+@use 'colors';
+
+.results {
+  font-size: 1em;
+  background-color: colors.$neutral1;
+  color: colors.$neutral6;
+  border-radius: 10px;
+  padding: 1.8em 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .amounts {
+    .tip-amount,
+    .total-amount {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    label {
+      font-size: 0.7em;
+    }
+
+    span {
+      color: colors.$neutral3;
+    }
+
+    p {
+      color: colors.$primary;
+      font-size: 1.5em;
+    }
+  }
+
+  .reset-btn {
+    height: 2em;
+    width: 100%;
+    border-radius: 5px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      height: 100%;
+      width: 100%;
+      font-size: 0.7em;
+      font-weight: bold;
+      background-color: rgba(colors.$neutral1, 0.8);
+      color: colors.$neutral1;
+      border: none;
+      border-radius: inherit;
+
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(colors.$primary, 0.3);
+        color: colors.$neutral1;
+      }
+    }
+
+    .completed{
+      background-color: colors.$primary;
+    }
+  }
+}
+
+@media (max-width: 376px){
+  .results{
+    padding: 1em;
+
+    .reset-btn {
+      height: 1.5em;
+      margin-top: 1em;
+    }
+  }
+}

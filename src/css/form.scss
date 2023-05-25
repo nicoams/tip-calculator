@@ -1,0 +1,190 @@
+@use 'colors';
+
+.inputs {
+  padding: 1em 1.5em 1em 0.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .label-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .error-active {
+      color: colors.$neutral7;
+    }
+  }
+
+  .bill,
+  .select-tip,
+  .number-people {
+    display: flex;
+    flex-direction: column;
+  }
+
+  input {
+    font-size: 1em;
+    font-family: 'Space Mono', monospace;
+    text-align: right;
+    color: colors.$neutral1;
+    border-radius: 5px;
+    padding: 0.2% 5%;
+  }
+
+  input[type='radio'] {
+    display: none;
+  }
+
+  #bill,
+  #custom,
+  #number-of-people,
+  #number-of-people-error {
+    width: 100%;
+    border: 2px solid transparent;
+    background-color: colors.$neutral5;
+    line-height: 1.5em;
+
+    &:hover {
+      cursor: pointer;
+      border: 2px solid colors.$primary;
+    }
+
+    &:focus-visible {
+      border: 2px solid colors.$primary;
+    }
+  }
+
+  #number-of-people-error{
+    border: 2px solid colors.$neutral7;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  .bill,
+  .number-people {
+    .input-holder {
+      width: 100%;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 15px;
+      }
+    }
+  }
+
+  .bill {
+    .input-holder::after {
+      content: url('../../public/assets/images/icon-dollar.svg');
+    }
+  }
+
+  .select-tip {
+    .tip-options {
+      text-align: center;
+      font-size: 1em;
+      display: grid;
+      grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+      gap: 0.2em;
+
+      label,
+      #custom {
+        font-size: 1em;
+        width: 100%;
+        border-radius: 5px;
+        line-height: 1.5em;
+        padding: 0;
+        margin: 0;
+      }
+
+      label {
+        background-color: colors.$neutral1;
+        color: colors.$neutral6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        &:hover {
+          cursor: pointer;
+          background-color: rgba(colors.$primary, 0.3);
+          color: colors.$neutral1;
+        }
+
+        &:checked {
+          background-color: colors.$primary;
+          color: colors.$neutral1;
+        }
+      }
+
+      #custom {
+        padding-right: 10%;
+
+        &::placeholder {
+          text-align: center;
+          transform: translateX(5%);
+        }
+      }
+
+      &:focus {
+        border: 2px solid colors.$primary;
+      }
+    }
+
+    input[type='radio']:checked + label {
+      background-color: colors.$primary;
+      color: colors.$neutral1;
+    }
+  }
+
+  .number-people {
+    .hidden {
+      display: none;
+    }
+
+    .show {
+      display: flex;
+    }
+  }
+
+  .input-holder::after {
+    content: url('../../public/assets/images/icon-person.svg');
+  }
+}
+
+@media (max-width: 376px){
+  .inputs{
+    padding: 0;
+
+    .bill,
+    .select-tip,
+    .number-people {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1em;
+    }
+
+    .select-tip {
+      .tip-options {
+        text-align: center;
+        font-size: 1em;
+        display: grid;
+        grid-template: repeat(3, 1fr) / repeat(2, 1fr);
+        gap: 0.8em;
+      }
+    }
+  }
+}

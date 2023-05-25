@@ -1,23 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from 'react';
+import { CalculationContext } from './context/context';
+
+import Card from './components/card';
+
+import './css/App.scss';
+import './scripts.js';
 
 function App() {
+  const { functions } = useContext(CalculationContext);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div
+      className="container"
+      onKeyDown={functions.clearAll}
+    >
+      <header className="header">
+        <img
+          src={process.env.PUBLIC_URL + '/assets/images/logo.svg'}
+          alt=""
+        />
       </header>
+
+      <Card />
+
+      <footer className="attribution">
+        Challenge by{' '}
+        <a
+          href="https://www.frontendmentor.io?ref=challenge"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Frontend Mentor
+        </a>
+        . Coded by{' '}
+        <a
+          href="github.com/nicoams"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Nicholas Albuquerque
+        </a>
+        .
+      </footer>
     </div>
   );
 }
